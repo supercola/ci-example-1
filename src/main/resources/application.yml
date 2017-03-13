@@ -1,0 +1,7 @@
+application:
+  title: KR Simple application
+  description: Application description for this one
+  logback:
+    access:
+      config:
+        path: logback-access.xml

@@ -1,0 +1,41 @@
+{
+  "networkMode": "bridge",
+  "containerDefinitions": [
+    {
+      "memory": 3072,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "mountPoints": [
+        {
+          "containerPath": "/var/log/riot",
+          "sourceVolume": "log-volume",
+          "readOnly": false
+        }
+      ],
+      "name": "CHANGEME-dev",
+      "image": "860358358509.dkr.ecr.us-east-1.amazonaws.com/riot-kr/CHANGEME-dev:%BUILD_NUMBER%",
+      "command": [
+        "java",
+        "-jar",
+        "-Dspring.profiles.active=dev",
+        "/app.jar"
+      ],
+      "cpu": 2048
+    }
+  ],
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "/var/log/riot"
+      },
+      "name": "log-volume"
+    }
+  ],
+  "family": "CHANGEME-dev"
+}
