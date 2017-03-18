@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 
-package com.riotgames.simple;
+package univ.lecture;
 
-import lombok.extern.log4j.Log4j;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-
-@SpringBootApplication
-@EnableAutoConfiguration
-@Configuration
-@ComponentScan
-@Log4j
 public class Application {
+    public Calculator calculator(String[] args) {
+        Calculator calc = new Calculator();
+        String exp = args[0];
+
+        int result = calc.calculate(exp);
+        System.out.println(String.format("%s = %d", exp, result));
+
+        return calc;
+    }
+
 	public static void main(String[] args) throws Exception {
-		SpringApplication.run(Application.class, args);
+        new Application().calculator(args);
 	}
 }

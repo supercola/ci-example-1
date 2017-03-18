@@ -5,3 +5,27 @@ application:
     access:
       config:
         path: logback-access.xml
+
+---
+server:
+  port: 8080
+spring:
+  profiles: local
+swagger:
+  enabled: true
+
+---
+server:
+  port: 8080
+spring:
+  profiles: dev
+swagger:
+  enabled: true
+
+---
+server:
+  port: 8080
+spring:
+  profiles: prod
+swagger:
+  enabled: true
