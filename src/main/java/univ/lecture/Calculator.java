@@ -116,13 +116,13 @@ public class Calculator {
             break;
          }
          
-         if(args[i].equals("(")){
+         if("(".equals(args[i])){
             s.push(args[i]);
          }
-         else if(args[i].equals(")")){
+         else if(")".equals(args[i])){
             while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
                a[c++]=(String)s.pop();
-            }if(s.peek().equals("(")){
+            }if("(".equals(s.peek())){
                   s.pop();
                }
             
