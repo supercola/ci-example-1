@@ -17,13 +17,13 @@ public class Calculator {
 	ArrayList<Character> array;
     public int calculate(String exp) { 
     	char[] chararray = exp.toCharArray();
-      	
     	sentence = new String[exp.length()];
     	array = new ArrayList();
     	
     	for(int i3=0;i3<exp.length();i3++){
     		array.add(chararray[i3]);
-    	}	
+    	}
+   
     	int i2=0;
     	while(!(array.isEmpty())){
     		String test_s;
@@ -34,7 +34,7 @@ public class Calculator {
         				test_s += Character.toString(array.remove(0));
         				if(array.isEmpty()){
         					break;
-        				}
+        			}
         			}	
     			}	
     			}
@@ -65,18 +65,17 @@ public class Calculator {
     public double evaluate(double x2, double y2, String op){
     	double z=0;
     	
-		if (op.equals("+"))
+		if ("+".equals(op))
 			z = x2 + y2;
-		else if (op.equals("-"))
+		else if ("-".equals(op))
 			z = x2 - y2;
-		else if (op.equals("*"))
+		else if ("*".equals(op))
 			z = x2 * y2;
 		else
 			z = x2 / y2;
 		
 		return z;
     }
-    
 	public String[] infixToPostfix(String[] args) {
 		a = new String[args.length];
 		Stack s = new Stack();		
@@ -86,16 +85,16 @@ public class Calculator {
 			if(args[i]==null){
 				break;
 			}
-			
-			if(args[i].equals("(")){
+			if("(".equals(args[i])){
 				s.push(args[i]);
 			}
+			else if(")".equals(args[i])){
+
 			else if(args[i].equals(")")){
 				while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
 					a[c++]=(String)s.pop();
 				}if(s.peek().equals("(")){
 						s.pop();
-					}				
 			}else if(isAnOperator(args[i])){
 				while(!s.isEmpty()&&precedence((String)s.peek())>=precedence(args[i])){
 				a[c++]=(String)s.pop();
@@ -108,10 +107,10 @@ public class Calculator {
 		}
 		while(!s.isEmpty()){
 			a[c++]=(String)s.pop();
-		}	
+		}
 		return a;
-	}
-	
+
+		}		
 	public int precedence(String token) {
 		switch (token) {
 		case "(":
@@ -129,7 +128,9 @@ public class Calculator {
 		case "-":
 			b = 1;
 			break;
-
+    default:
+      b = 100;
+      break;        
 		}
 		return b;
 	}
@@ -149,6 +150,5 @@ public class Calculator {
 			} else
 				stack.push(input);
 		}
-	}
-    
+  }
 }
