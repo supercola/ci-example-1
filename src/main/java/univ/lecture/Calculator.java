@@ -12,6 +12,10 @@ import java.util.Stack;
  * 이 클래스는 중위식을 후위식으로 변환 후 사칙연산 계산을 하는 클래스이다.
  */
 
+/*
+ * 수정 test
+ */
+
 public class Calculator {
 	
 	String a[];
