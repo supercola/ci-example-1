@@ -18,13 +18,12 @@ import java.util.Stack;
 
 public class Calculator {
 	
-	String a[];
+	String post[];
 	String sentence[];
 	Stack stack = new Stack();
-	int b;
-	int c;
-	ArrayList<Character> array;
-	
+	int priority;
+	int indexOfpost;
+	ArrayList<Character> array;	
 	
     public int calculate(String exp) {
     	
@@ -32,11 +31,11 @@ public class Calculator {
     	 *  해당 클래스는 하나의 String 값으로 들어온 연산식을 숫자, 괄호, 연산자로 구별 한 뒤 RPN 메소드를 이용해
     	 *  후위식의 변환 및 연산을 수행하고 결과값을 반환하는 클래스이다.
     	 */
-char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하나하나 쪼개놓음.
+    	char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하나하나 쪼개놓음.
     	
-//    	for(int j=0;j<exp.length();j++){
-//    		System.out.println(chararray[j]);
-//    	} //잘 나오나 테스트 -> 잘 됨.
+    	//    	for(int j=0;j<exp.length();j++){
+    	//    		System.out.println(chararray[j]);
+    	//    	} //잘 나오나 테스트 -> 잘 됨.
     	
     	sentence = new String[exp.length()];//연산식을 string으로 변환한 뒤 저장할 함수
     	array = new ArrayList();//쪼개진 연산식을 저장할 ArrayList
@@ -102,27 +101,27 @@ char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하�
 	public int precedence(String token) {
 		switch (token) {
 		case "(":
-			b = 0;
+			priority = 0;
 			break;
 		case "*":// 곱하기
-			b = 2;
+			priority = 2;
 			break;
 		case "/":// 나누기
-			b = 2;
+			priority = 2;
 			break;
 		case "+":// 더하기
-			b = 1;
+			priority = 1;
 			break;
 		case "-":// 빼기
-			b = 1;
+			priority = 1;
 			break;
 
 		}
-		return b;
+		return priority;
 	}
 	
 	public String[] infixToPostfix(String[] args) {//후위식으로 변환해주는 함수
-		a = new String[args.length];//args의 길이만큼의 배열 a를 만듬
+		post = new String[args.length];//args의 길이만큼의 배열 a를 만듬
 		Stack s = new Stack();		
 		
 		for(int i=0;i<args.length;i++){//args의 길이만큼 돌아가는 for문
@@ -136,24 +135,24 @@ char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하�
 			}
 			else if(args[i].equals(")")){//닫힌 괄호 만났을 때
 				while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
-					a[c++]=(String)s.pop();
+					post[indexOfpost++]=(String)s.pop();
 				}if(s.peek().equals("(")){
 						s.pop();
 					}//열린 괄호 제거
 				
 			}else if(isAnOperator(args[i])){//연산자의 경우
 				while(!s.isEmpty()&&precedence((String)s.peek())>=precedence(args[i])){
-				a[c++]=(String)s.pop();
+				post[indexOfpost++]=(String)s.pop();
 				}s.push(args[i]);
 			}//맨 위의 스택이 args[i] 보다 연산 순위가 높으면, pop해서 a에 저장. args[i]를 push
 			
 			else if(!(isAnOperator(args[i]))){//피연산자의 경우
-				a[c++]=args[i];//배열에 저장
+				post[indexOfpost++]=args[i];//배열에 저장
 			}
 		}
 
 		while(!s.isEmpty()){
-			a[c++]=(String)s.pop();
+			post[indexOfpost++]=(String)s.pop();
 		}//남아있는 모든 원소를 pop
 		
 //		System.out.print("변환된 후위식 : ");
@@ -163,7 +162,7 @@ char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하�
 //		}
 //		System.out.println(" ");
 		
-		return a;
+		return post;
 	}
 	
 	public void RPN(String[] args) {//최종적으로 계산 해주는 메소드
