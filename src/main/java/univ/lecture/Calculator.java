@@ -55,7 +55,7 @@ public class Calculator {
        
        double result = Double.parseDouble((String) stack.pop());
        
-        return (int)result;
+       return (int)result;
     }
     
     private boolean isAnOperator(String s){
