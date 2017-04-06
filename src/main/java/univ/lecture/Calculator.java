@@ -13,6 +13,7 @@ import java.util.Stack;
  */
 
 /*
+
  * 변경
  */
 
@@ -73,7 +74,6 @@ public class Calculator {
 		}
 		return Integer.parseInt((String)stac.pop());
     }
-    
     private boolean isAnOperator(String s) {
 		return (s.length() == 1 && "+-/*".indexOf(s) >= 0);
 	}
@@ -112,4 +112,5 @@ public class Calculator {
 		}
 		return b;}
         
+
 }
