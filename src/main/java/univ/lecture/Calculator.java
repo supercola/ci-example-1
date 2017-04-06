@@ -116,7 +116,7 @@ public class Calculator {
             s.push(args[i]);
          }
          else if(")".equals(args[i])){
-            while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
+            while(!s.isEmpty()&&(precedence((String)s.peek())!=0)){
                a[c++]=(String)s.pop();
             }if("(".equals(s.peek())){
                   s.pop();
