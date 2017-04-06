@@ -1,16 +1,36 @@
 package univ.lecture;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
  * Created by tchi on 2017. 3. 19..
  */
+
+/*
+ * 연산자 우선순위를 지원해주는 간단한 계산 어플리케이션.
+ * 이 클래스는 중위식을 후위식으로 변환 후 사칙연산 계산을 하는 클래스이다.
+ */
+
 public class Calculator {
 	
+	String a[];
+	String sentence[];
 	Stack stack = new Stack();
 	int b;
+	int c;
+	ArrayList<Character> array;
+	
 	
     public int calculate(String exp) {
+    	
+    	/*
+    	 *  해당 클래스는 하나의 String 값으로 들어온 연산식을 숫자, 괄호, 연산자로 구별 한 뒤 RPN 메소드를 이용해
+    	 *  후위식의 변환 및 연산을 수행하고 결과값을 반환하는 클래스이다.
+    	 */
+    	
+    	
+    	
         return 2;
     }
     
