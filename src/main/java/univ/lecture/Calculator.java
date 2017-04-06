@@ -60,7 +60,7 @@ public class Calculator {
     
     private boolean isAnOperator(String s){
        
-       if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")){
+       if("+".equals(s)||"-".equals(s)||"*".equals(s)||"/".equals(s)){
           return true;
        }else
           return false;
@@ -98,6 +98,9 @@ public class Calculator {
       case "-":
          b = 1;
          break;
+      default :
+    	  b=-1;
+    	  break;
 
       }
       return b;
