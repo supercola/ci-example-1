@@ -129,7 +129,8 @@ public class Calculator {
          }else if(isAnOperator(args[i])){
             while(!s.isEmpty()&&precedence((String)s.peek())>=precedence(args[i])){
             a[c++]=(String)s.pop();
-            }s.push(args[i]);
+            }
+            s.push(args[i]);
          }
          
          else if(!(isAnOperator(args[i]))){
@@ -148,7 +149,8 @@ public class Calculator {
 
       for (int i = 0; i < args.length; i++) {
          String input = args[i];
-         if(input ==  null)break;
+         if(input ==  null)
+        	 break;
 
          if (isAnOperator(input)) {
             
@@ -156,7 +158,7 @@ public class Calculator {
             double x2=Double.parseDouble((String) stack.pop());
             double z2 = evaluate(x2, y2, input);
             
-            stack.push("" + z2);
+            stack.push(z2);
          } else
             stack.push(input);
       }
