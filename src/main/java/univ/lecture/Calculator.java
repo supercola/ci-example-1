@@ -11,6 +11,9 @@ import java.util.ArrayList;
  * 연산자 우선순위를 지원해주는 간단한 계산 어플리케이션.
  * 이 클래스는 중위식을 후위식으로 변환 후 사칙연산 계산을 하는 클래스이다.
  */
+/*
+ * 7조
+ */
 
 public class Calculator {
 	
