@@ -69,11 +69,11 @@ public class Calculator {
     public double evaluate(double x2, double y2, String op){
        double z;
        
-      if (op.equals("+"))
+      if ("+".equals(op))
          z = x2 + y2;
-      else if (op.equals("-"))
+      else if ("-".equals(op))
          z = x2 - y2;
-      else if (op.equals("*"))
+      else if ("*".equals(op))
          z = x2 * y2;
       else
          z = x2 / y2;
