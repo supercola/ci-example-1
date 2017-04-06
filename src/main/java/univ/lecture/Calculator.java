@@ -67,7 +67,7 @@ public class Calculator {
     }
     
     public double evaluate(double x2, double y2, String op){
-       double z=0;
+       double z;
        
       if (op.equals("+"))
          z = x2 + y2;
