@@ -29,22 +29,22 @@ public class Calculator {
 
 		int i2 = 0;
 		while (!(array.isEmpty())) {
-			String test_s;
+			StringBuilder sb = new StringBuilder();
 			if ("0123456789".indexOf(Character.toString(array.get(0))) >= 0) {
-				test_s = Character.toString(array.remove(0));
+				sb.append(Character.toString(array.remove(0)));
 				if (!array.isEmpty()) {
 					while (("0123456789".indexOf(Character.toString(array.get(0))) >= 0)) {
-						test_s += Character.toString(array.remove(0));
+						sb.append(Character.toString(array.remove(0)));
 						if (array.isEmpty()) {
 							break;
 						}
 					}
 				}
 			} else {
-				test_s = Character.toString(array.remove(0));
+				sb.append(Character.toString(array.remove(0)));
 			}
 
-			sentence[i2] = test_s;
+			sentence[i2] = sb.toString();
 			i2++;
 
 		}
