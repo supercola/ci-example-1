@@ -7,6 +7,23 @@ import java.util.ArrayList;
  * Created by tchi on 2017. 3. 19..
  */
 
+<<<<<<< HEAD
+/*
+ * 연산자 우선순위를 지원해주는 간단한 계산 어플리케이션.
+ * 이 클래스는 중위식을 후위식으로 변환 후 사칙연산 계산을 하는 클래스이다.
+ */
+<<<<<<< HEAD
+/* 7조
+=======
+
+/*
+
+ * 변경
+>>>>>>> 05874b3f5eff8f579bfd0e4d196bbdf07be11936
+ */
+
+=======
+>>>>>>> 0f64fb8deef96b26ef73f3fb2ef66ee8b3a75fc9
 public class Calculator {
 	
 	String a[];
@@ -89,8 +106,6 @@ public class Calculator {
 				s.push(args[i]);
 			}
 			else if(")".equals(args[i])){
-
-			else if(args[i].equals(")")){
 				while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
 					a[c++]=(String)s.pop();
 				}if(s.peek().equals("(")){
