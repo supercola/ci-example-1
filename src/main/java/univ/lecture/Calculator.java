@@ -117,6 +117,51 @@ char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하�
 		return b;
 	}
 	
+	public String[] infixToPostfix(String[] args) {//후위식으로 변환해주는 함수
+		a = new String[args.length];//args의 길이만큼의 배열 a를 만듬
+		Stack s = new Stack();		
+		
+		for(int i=0;i<args.length;i++){//args의 길이만큼 돌아가는 for문
+			
+			if(args[i]==null){
+				break;
+			}
+			
+			if(args[i].equals("(")){//열린 괄호 만났을 때
+				s.push(args[i]);
+			}
+			else if(args[i].equals(")")){//닫힌 괄호 만났을 때
+				while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
+					a[c++]=(String)s.pop();
+				}if(s.peek().equals("(")){
+						s.pop();
+					}//열린 괄호 제거
+				
+			}else if(isAnOperator(args[i])){//연산자의 경우
+				while(!s.isEmpty()&&precedence((String)s.peek())>=precedence(args[i])){
+				a[c++]=(String)s.pop();
+				}s.push(args[i]);
+			}//맨 위의 스택이 args[i] 보다 연산 순위가 높으면, pop해서 a에 저장. args[i]를 push
+			
+			else if(!(isAnOperator(args[i]))){//피연산자의 경우
+				a[c++]=args[i];//배열에 저장
+			}
+		}
+
+		while(!s.isEmpty()){
+			a[c++]=(String)s.pop();
+		}//남아있는 모든 원소를 pop
+		
+//		System.out.print("변환된 후위식 : ");
+//		
+//		for(int j=0;j<c;j++){
+//			System.out.print(a[j]+" ");
+//		}
+//		System.out.println(" ");
+		
+		return a;
+	}
+	
 	public void RPN(String[] args) {//최종적으로 계산 해주는 메소드
 
 		for (int i = 0; i < args.length; i++) {
