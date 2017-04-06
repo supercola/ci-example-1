@@ -28,10 +28,48 @@ public class Calculator {
     	 *  해당 클래스는 하나의 String 값으로 들어온 연산식을 숫자, 괄호, 연산자로 구별 한 뒤 RPN 메소드를 이용해
     	 *  후위식의 변환 및 연산을 수행하고 결과값을 반환하는 클래스이다.
     	 */
+char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하나하나 쪼개놓음.
     	
+//    	for(int j=0;j<exp.length();j++){
+//    		System.out.println(chararray[j]);
+//    	} //잘 나오나 테스트 -> 잘 됨.
     	
+    	sentence = new String[exp.length()];//연산식을 string으로 변환한 뒤 저장할 함수
+    	array = new ArrayList();//쪼개진 연산식을 저장할 ArrayList
     	
-        return 2;
+    	for(int i3=0;i3<exp.length();i3++){
+    		array.add(chararray[i3]);
+    	}//쪼개인 연산식을 하나한 넣는다.
+    	
+    	int i2=0;//후위식 배열의 인덱스를 표현할 변수
+    	while(!(array.isEmpty())){//어레이리스트에 원소가 있을 동안
+    		String test_s;
+    		if("0123456789".indexOf(Character.toString(array.get(0)))>=0){//만약 이번에 들어온 char의 값이 숫자라면
+    			//이 다음 값도 숫자 인지 확인한다. 만약 10이 들어왔다면, 1을 test_s에 저장하고 그 뒤 0을 1에 붙여 저장하기 위한 확인이다.
+    			test_s = Character.toString(array.remove(0));//char값을 string으로 변환
+    			if(!array.isEmpty()){
+        			while(("0123456789".indexOf(Character.toString(array.get(0)))>=0)){//다음 값이 숫자가 아닐때까지
+        				test_s += Character.toString(array.remove(0));//test_s에 다음 숫자값을 붙인다.
+        				if(array.isEmpty()){//만약 어레이리스트가 비어있다면 while문을 나간다.
+        					break;
+        				}
+        			}//while문의 끝	
+    			}	
+    			}//if의 끝
+    		else{//원소가 숫자가 아니라면 바로 test_s에 해당 값을 저장한다.
+    			test_s = Character.toString(array.remove(0));
+    		}
+    		
+    		sentence[i2] = test_s;//완성된 String 값을 후위식 배열에 저장한다.
+    		i2++;//인덱스 값을 증가한다.
+    	
+    	}
+    	
+    	RPN(infixToPostfix(sentence));
+    	
+    	double result = Double.parseDouble((String) stack.pop());
+    	
+        return (int)result;
     }
     
     private boolean isAnOperator(String s){
