@@ -22,6 +22,20 @@ public class Calculator {
     	    return 2;
     }
     
+	private int evaluate(int x, int y, String op) {
+		int z = 0;
+		
+		if (op.equals("+"))//A
+			z = x + y;
+		else if (op.equals("-"))//S
+			z = x - y;
+		else if (op.equals("*"))//M
+			z = x * y;
+		else
+			z = x / y;
+		return z;
+	}
+    
     public int precedence(String token) {
 		switch(token){
 		case "(":
