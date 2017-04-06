@@ -80,31 +80,27 @@ public class Calculator {
       
       return z;
     }
-    
+   
    public int precedence(String token) {
-      switch (token) {
-      case "(":
-         b = 0;
-         break;
-      case "*":
-         b = 2;
-         break;
-      case "/":
-         b = 2;
-         break;
-      case "+":
-         b = 1;
-         break;
-      case "-":
-         b = 1;
-         break;
-      default :
-    	  b=-1;
-    	  break;
+	      switch (token) {
+	      case "(":
+	         b = 0;
+	         break;
+	      case "*":
+	      case "/":
+	         b = 2;
+	         break;
+	      case "+":
+	      case "-":
+	         b = 1;
+	         break;
+	      default :
+	    	  b=-1;
+	    	  break;
 
-      }
-      return b;
-   }
+	      }
+	      return b;
+	   }
    
    public String[] infixToPostfix(String[] args) {
       a = new String[args.length];
