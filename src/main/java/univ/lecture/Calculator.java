@@ -8,63 +8,64 @@ import java.util.Stack;
  */
 
 /*
- * 연산자 우선순위를 지원해주는 간단한 계산 어플리케이션.
- * 이 클래스는 중위식을 후위식으로 변환 후 사칙연산 계산을 하는 클래스이다.
+ * �뿰�궛�옄 �슦�꽑�닚�쐞瑜� 吏��썝�빐二쇰뒗 媛꾨떒�븳 怨꾩궛 �뼱�뵆由ъ��씠�뀡.
+ * �씠 �겢�옒�뒪�뒗 以묒쐞�떇�쓣 �썑�쐞�떇�쑝濡� 蹂��솚 �썑 �궗移숈뿰�궛 怨꾩궛�쓣 �븯�뒗 �겢�옒�뒪�씠�떎.
  */
 
 /*
- * 수정 test
+ * �닔�젙 test
  */
 
 public class Calculator {
 	
-	String post[];
+	String a[];
 	String sentence[];
 	Stack stack = new Stack();
-	int priority;
-	int indexOfpost;
-	ArrayList<Character> array;	
+	int b;
+	int c;
+	ArrayList<Character> array;
+	
 	
     public int calculate(String exp) {
     	
     	/*
-    	 *  해당 클래스는 하나의 String 값으로 들어온 연산식을 숫자, 괄호, 연산자로 구별 한 뒤 RPN 메소드를 이용해
-    	 *  후위식의 변환 및 연산을 수행하고 결과값을 반환하는 클래스이다.
+    	 *  �빐�떦 �겢�옒�뒪�뒗 �븯�굹�쓽 String 媛믪쑝濡� �뱾�뼱�삩 �뿰�궛�떇�쓣 �닽�옄, 愿꾪샇, �뿰�궛�옄濡� 援щ퀎 �븳 �뮘 RPN 硫붿냼�뱶瑜� �씠�슜�빐
+    	 *  �썑�쐞�떇�쓽 蹂��솚 諛� �뿰�궛�쓣 �닔�뻾�븯怨� 寃곌낵媛믪쓣 諛섑솚�븯�뒗 �겢�옒�뒪�씠�떎.
     	 */
-    	char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하나하나 쪼개놓음.
+char[] chararray = exp.toCharArray(); // �뿰�궛�떇�쓣 �쟾遺� char �삎�쑝濡� �븯�굹�븯�굹 履쇨컻�넃�쓬.
     	
-    	//    	for(int j=0;j<exp.length();j++){
-    	//    		System.out.println(chararray[j]);
-    	//    	} //잘 나오나 테스트 -> 잘 됨.
+//    	for(int j=0;j<exp.length();j++){
+//    		System.out.println(chararray[j]);
+//    	} //�옒 �굹�삤�굹 �뀒�뒪�듃 -> �옒 �맖.
     	
-    	sentence = new String[exp.length()];//연산식을 string으로 변환한 뒤 저장할 함수
-    	array = new ArrayList();//쪼개진 연산식을 저장할 ArrayList
+    	sentence = new String[exp.length()];//�뿰�궛�떇�쓣 string�쑝濡� 蹂��솚�븳 �뮘 ���옣�븷 �븿�닔
+    	array = new ArrayList();//履쇨컻吏� �뿰�궛�떇�쓣 ���옣�븷 ArrayList
     	
     	for(int i3=0;i3<exp.length();i3++){
     		array.add(chararray[i3]);
-    	}//쪼개인 연산식을 하나한 넣는다.
+    	}//履쇨컻�씤 �뿰�궛�떇�쓣 �븯�굹�븳 �꽔�뒗�떎.
     	
-    	int i2=0;//후위식 배열의 인덱스를 표현할 변수
-    	while(!(array.isEmpty())){//어레이리스트에 원소가 있을 동안
+    	int i2=0;//�썑�쐞�떇 諛곗뿴�쓽 �씤�뜳�뒪瑜� �몴�쁽�븷 蹂��닔
+    	while(!(array.isEmpty())){//�뼱�젅�씠由ъ뒪�듃�뿉 �썝�냼媛� �엳�쓣 �룞�븞
     		String test_s;
-    		if("0123456789".indexOf(Character.toString(array.get(0)))>=0){//만약 이번에 들어온 char의 값이 숫자라면
-    			//이 다음 값도 숫자 인지 확인한다. 만약 10이 들어왔다면, 1을 test_s에 저장하고 그 뒤 0을 1에 붙여 저장하기 위한 확인이다.
-    			test_s = Character.toString(array.remove(0));//char값을 string으로 변환
+    		if("0123456789".indexOf(Character.toString(array.get(0)))>=0){//留뚯빟 �씠踰덉뿉 �뱾�뼱�삩 char�쓽 媛믪씠 �닽�옄�씪硫�
+    			//�씠 �떎�쓬 媛믩룄 �닽�옄 �씤吏� �솗�씤�븳�떎. 留뚯빟 10�씠 �뱾�뼱�솕�떎硫�, 1�쓣 test_s�뿉 ���옣�븯怨� 洹� �뮘 0�쓣 1�뿉 遺숈뿬 ���옣�븯湲� �쐞�븳 �솗�씤�씠�떎.
+    			test_s = Character.toString(array.remove(0));//char媛믪쓣 string�쑝濡� 蹂��솚
     			if(!array.isEmpty()){
-        			while(("0123456789".indexOf(Character.toString(array.get(0)))>=0)){//다음 값이 숫자가 아닐때까지
-        				test_s += Character.toString(array.remove(0));//test_s에 다음 숫자값을 붙인다.
-        				if(array.isEmpty()){//만약 어레이리스트가 비어있다면 while문을 나간다.
+        			while(("0123456789".indexOf(Character.toString(array.get(0)))>=0)){//�떎�쓬 媛믪씠 �닽�옄媛� �븘�땺�븣源뚯�
+        				test_s += Character.toString(array.remove(0));//test_s�뿉 �떎�쓬 �닽�옄媛믪쓣 遺숈씤�떎.
+        				if(array.isEmpty()){//留뚯빟 �뼱�젅�씠由ъ뒪�듃媛� 鍮꾩뼱�엳�떎硫� while臾몄쓣 �굹媛꾨떎.
         					break;
         				}
-        			}//while문의 끝	
+        			}//while臾몄쓽 �걹	
     			}	
-    			}//if의 끝
-    		else{//원소가 숫자가 아니라면 바로 test_s에 해당 값을 저장한다.
+    			}//if�쓽 �걹
+    		else{//�썝�냼媛� �닽�옄媛� �븘�땲�씪硫� 諛붾줈 test_s�뿉 �빐�떦 媛믪쓣 ���옣�븳�떎.
     			test_s = Character.toString(array.remove(0));
     		}
     		
-    		sentence[i2] = test_s;//완성된 String 값을 후위식 배열에 저장한다.
-    		i2++;//인덱스 값을 증가한다.
+    		sentence[i2] = test_s;//�셿�꽦�맂 String 媛믪쓣 �썑�쐞�떇 諛곗뿴�뿉 ���옣�븳�떎.
+    		i2++;//�씤�뜳�뒪 媛믪쓣 利앷��븳�떎.
     	
     	}
     	
@@ -81,7 +82,7 @@ public class Calculator {
     		return true;
     	}else
     		return false;
-    }//연산자인지 확인해주는 함수
+    }//�뿰�궛�옄�씤吏� �솗�씤�빐二쇰뒗 �븿�닔
     
     public double evaluate(double x2, double y2, String op){
     	double z=0;
@@ -96,76 +97,76 @@ public class Calculator {
 			z = x2 / y2;
 		
 		return z;
-    }//계산이 이루어지는 함수.
+    }//怨꾩궛�씠 �씠猷⑥뼱吏��뒗 �븿�닔.
     
 	public int precedence(String token) {
 		switch (token) {
 		case "(":
-			priority = 0;
+			b = 0;
 			break;
-		case "*":// 곱하기
-			priority = 2;
+		case "*":// 怨깊븯湲�
+			b = 2;
 			break;
-		case "/":// 나누기
-			priority = 2;
+		case "/":// �굹�늻湲�
+			b = 2;
 			break;
-		case "+":// 더하기
-			priority = 1;
+		case "+":// �뜑�븯湲�
+			b = 1;
 			break;
-		case "-":// 빼기
-			priority = 1;
+		case "-":// 鍮쇨린
+			b = 1;
 			break;
 
 		}
-		return priority;
+		return b;
 	}
 	
-	public String[] infixToPostfix(String[] args) {//후위식으로 변환해주는 함수
-		post = new String[args.length];//args의 길이만큼의 배열 a를 만듬
+	public String[] infixToPostfix(String[] args) {//�썑�쐞�떇�쑝濡� 蹂��솚�빐二쇰뒗 �븿�닔
+		a = new String[args.length];//args�쓽 湲몄씠留뚰겮�쓽 諛곗뿴 a瑜� 留뚮벉
 		Stack s = new Stack();		
 		
-		for(int i=0;i<args.length;i++){//args의 길이만큼 돌아가는 for문
+		for(int i=0;i<args.length;i++){//args�쓽 湲몄씠留뚰겮 �룎�븘媛��뒗 for臾�
 			
 			if(args[i]==null){
 				break;
 			}
 			
-			if(args[i].equals("(")){//열린 괄호 만났을 때
+			if(args[i].equals("(")){//�뿴由� 愿꾪샇 留뚮궗�쓣 �븣
 				s.push(args[i]);
 			}
-			else if(args[i].equals(")")){//닫힌 괄호 만났을 때
+			else if(args[i].equals(")")){//�떕�엺 愿꾪샇 留뚮궗�쓣 �븣
 				while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
-					post[indexOfpost++]=(String)s.pop();
+					a[c++]=(String)s.pop();
 				}if(s.peek().equals("(")){
 						s.pop();
-					}//열린 괄호 제거
+					}//�뿴由� 愿꾪샇 �젣嫄�
 				
-			}else if(isAnOperator(args[i])){//연산자의 경우
+			}else if(isAnOperator(args[i])){//�뿰�궛�옄�쓽 寃쎌슦
 				while(!s.isEmpty()&&precedence((String)s.peek())>=precedence(args[i])){
-				post[indexOfpost++]=(String)s.pop();
+				a[c++]=(String)s.pop();
 				}s.push(args[i]);
-			}//맨 위의 스택이 args[i] 보다 연산 순위가 높으면, pop해서 a에 저장. args[i]를 push
+			}//留� �쐞�쓽 �뒪�깮�씠 args[i] 蹂대떎 �뿰�궛 �닚�쐞媛� �넂�쑝硫�, pop�빐�꽌 a�뿉 ���옣. args[i]瑜� push
 			
-			else if(!(isAnOperator(args[i]))){//피연산자의 경우
-				post[indexOfpost++]=args[i];//배열에 저장
+			else if(!(isAnOperator(args[i]))){//�뵾�뿰�궛�옄�쓽 寃쎌슦
+				a[c++]=args[i];//諛곗뿴�뿉 ���옣
 			}
 		}
 
 		while(!s.isEmpty()){
-			post[indexOfpost++]=(String)s.pop();
-		}//남아있는 모든 원소를 pop
+			a[c++]=(String)s.pop();
+		}//�궓�븘�엳�뒗 紐⑤뱺 �썝�냼瑜� pop
 		
-//		System.out.print("변환된 후위식 : ");
+//		System.out.print("蹂��솚�맂 �썑�쐞�떇 : ");
 //		
 //		for(int j=0;j<c;j++){
 //			System.out.print(a[j]+" ");
 //		}
 //		System.out.println(" ");
 		
-		return post;
+		return a;
 	}
 	
-	public void RPN(String[] args) {//최종적으로 계산 해주는 메소드
+	public void RPN(String[] args) {//理쒖쥌�쟻�쑝濡� 怨꾩궛 �빐二쇰뒗 硫붿냼�뱶
 
 		for (int i = 0; i < args.length; i++) {
 			String input = args[i];
@@ -182,6 +183,6 @@ public class Calculator {
 			} else
 				stack.push(input);
 		}
-	}//RPN의 끝
+	}//RPN�쓽 �걹
     
 }
