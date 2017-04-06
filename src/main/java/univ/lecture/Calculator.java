@@ -22,6 +22,10 @@ public class Calculator {
     	    return 2;
     }
     
+    private boolean isAnOperator(String s) {
+		return (s.length() == 1 && "+-/*".indexOf(s) >= 0);
+	}
+    
 	private int evaluate(int x, int y, String op) {
 		int z = 0;
 		
