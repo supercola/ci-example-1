@@ -60,20 +60,20 @@ public class Calculator {
     
     private boolean isAnOperator(String s){
        
-       if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")){
+       if("+".equals(s)||"-".equals(s)||"*".equals(s)||"/".equals(s)){
           return true;
        }else
           return false;
     }
     
     public double evaluate(double x2, double y2, String op){
-       double z=0;
+       double z;
        
-      if (op.equals("+"))
+      if ("+".equals(op))
          z = x2 + y2;
-      else if (op.equals("-"))
+      else if ("-".equals(op))
          z = x2 - y2;
-      else if (op.equals("*"))
+      else if ("*".equals(op))
          z = x2 * y2;
       else
          z = x2 / y2;
@@ -98,6 +98,9 @@ public class Calculator {
       case "-":
          b = 1;
          break;
+      default :
+    	  b=-1;
+    	  break;
 
       }
       return b;
@@ -113,20 +116,21 @@ public class Calculator {
             break;
          }
          
-         if(args[i].equals("(")){
+         if("(".equals(args[i])){
             s.push(args[i]);
          }
-         else if(args[i].equals(")")){
+         else if(")".equals(args[i])){
             while(!s.isEmpty()&&!(precedence((String)s.peek())==0)){
                a[c++]=(String)s.pop();
-            }if(s.peek().equals("(")){
+            }if("(".equals(s.peek())){
                   s.pop();
                }
             
          }else if(isAnOperator(args[i])){
             while(!s.isEmpty()&&precedence((String)s.peek())>=precedence(args[i])){
             a[c++]=(String)s.pop();
-            }s.push(args[i]);
+            }
+            s.push(args[i]);
          }
          
          else if(!(isAnOperator(args[i]))){
@@ -145,7 +149,8 @@ public class Calculator {
 
       for (int i = 0; i < args.length; i++) {
          String input = args[i];
-         if(input ==  null)break;
+         if(input ==  null)
+        	 break;
 
          if (isAnOperator(input)) {
             
