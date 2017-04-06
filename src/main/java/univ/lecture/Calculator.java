@@ -1,8 +1,7 @@
 package univ.lecture;
 
-import java.util.ArrayList;
 import java.util.Stack;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 /**
  * Created by tchi on 2017. 3. 19..
@@ -16,42 +15,55 @@ import java.util.StringTokenizer;
 public class Calculator {
 	
 	String a[];
-	
-	Stack stack = new Stack();
+	String sentence[];
 	int b;
 	int c;
+	Stack stack = new Stack();
 	ArrayList<Character> array;
-	
-	
-    public int calculate(String exp) {
-    	int i2=0;
+    public int calculate(String exp) { 
     	
-    	StringTokenizer token = new StringTokenizer(exp,"+-*/()");//숫자
-    	StringTokenizer token2 = new StringTokenizer(exp,"0123456789()");//+-*/
-    	StringTokenizer token3 = new StringTokenizer(exp,"0123456789+-*/");//( )
-    	String sentence[]=new String[token.countTokens()+token2.countTokens()+token3.countTokens()];
-    	while(token.hasMoreTokens()||token2.hasMoreTokens()||token3.hasMoreTokens()){
-    	if(token3.hasMoreTokens()||token.hasMoreTokens()){
-    		if(token3.hasMoreTokens())
-    		sentence[i2++]=token3.nextToken();
-    		if(token.hasMoreTokens())
-    			sentence[i2++]=token.nextToken();
-    	}
-    	if(token.hasMoreTokens()||token2.hasMoreTokens()){
-    		if(token2.hasMoreTokens())
-        		sentence[i2++]=token2.nextToken();
-        	if(token.hasMoreTokens())
-        			sentence[i2++]=token.nextToken();
-    	}
+    	/*
+    	 *  해당 클래스는 하나의 String 값으로 들어온 연산식을 숫자, 괄호, 연산자로 구별 한 뒤 RPN 메소드를 이용해
+    	 *  후위식의 변환 및 연산을 수행하고 결과값을 반환하는 클래스이다.
+    	 */
     	
-    	if(token.hasMoreTokens()||token2.hasMoreTokens()){
-    		if(token3.hasMoreTokens())
-    		sentence[i2++]=token3.nextToken();
-    		if(token2.hasMoreTokens())
-    			sentence[i2++]=token2.nextToken();
-    	}
-    	}
+    	char[] chararray = exp.toCharArray(); // 연산식을 전부 char 형으로 하나하나 쪼개놓음.
+    	
+//    	for(int j=0;j<exp.length();j++){
+//    		System.out.println(chararray[j]);
+//    	} //잘 나오나 테스트 -> 잘 됨.
+    	
+    	sentence = new String[exp.length()];//연산식을 string으로 변환한 뒤 저장할 함수
+    	array = new ArrayList();//쪼개진 연산식을 저장할 ArrayList
+    	
+    	for(int i3=0;i3<exp.length();i3++){
+    		array.add(chararray[i3]);
+    	}//쪼개인 연산식을 하나한 넣는다.
+    	
+    	int i2=0;//후위식 배열의 인덱스를 표현할 변수
+    	while(!(array.isEmpty())){//어레이리스트에 원소가 있을 동안
+    		String test_s;
+    		if("0123456789".indexOf(Character.toString(array.get(0)))>=0){//만약 이번에 들어온 char의 값이 숫자라면
+    			//이 다음 값도 숫자 인지 확인한다. 만약 10이 들어왔다면, 1을 test_s에 저장하고 그 뒤 0을 1에 붙여 저장하기 위한 확인이다.
+    			test_s = Character.toString(array.remove(0));//char값을 string으로 변환
+    			if(!array.isEmpty()){
+        			while(("0123456789".indexOf(Character.toString(array.get(0)))>=0)){//다음 값이 숫자가 아닐때까지
+        				test_s += Character.toString(array.remove(0));//test_s에 다음 숫자값을 붙인다.
+        				if(array.isEmpty()){//만약 어레이리스트가 비어있다면 while문을 나간다.
+        					break;
+        				}
+        			}//while문의 끝	
+    			}	
+    			}//if의 끝
+    		else{//원소가 숫자가 아니라면 바로 test_s에 해당 값을 저장한다.
+    			test_s = Character.toString(array.remove(0));
+    		}
     		
+    		sentence[i2] = test_s;//완성된 String 값을 후위식 배열에 저장한다.
+    		i2++;//인덱스 값을 증가한다.
+    	
+    	}
+    	
     	RPN(infixToPostfix(sentence));
     	
     	double result = Double.parseDouble((String) stack.pop());
@@ -82,28 +94,6 @@ public class Calculator {
 		return z;
     }//계산이 이루어지는 함수.
     
-	public int precedence(String token) {
-		switch (token) {
-		case "(":
-			b = 0;
-			break;
-		case "*":// 곱하기
-			b = 2;
-			break;
-		case "/":// 나누기
-			b = 2;
-			break;
-		case "+":// 더하기
-			b = 1;
-			break;
-		case "-":// 빼기
-			b = 1;
-			break;
-
-		}
-		return b;
-	}
-	
 	public String[] infixToPostfix(String[] args) {//후위식으로 변환해주는 함수
 		a = new String[args.length];//args의 길이만큼의 배열 a를 만듬
 		Stack s = new Stack();		
@@ -147,6 +137,28 @@ public class Calculator {
 //		System.out.println(" ");
 		
 		return a;
+	}
+	
+	public int precedence(String token) {
+		switch (token) {
+		case "(":
+			b = 0;
+			break;
+		case "*":// 곱하기
+			b = 2;
+			break;
+		case "/":// 나누기
+			b = 2;
+			break;
+		case "+":// 더하기
+			b = 1;
+			break;
+		case "-":// 빼기
+			b = 1;
+			break;
+
+		}
+		return b;
 	}
 	
 	public void RPN(String[] args) {//최종적으로 계산 해주는 메소드
