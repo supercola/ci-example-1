@@ -11,6 +11,23 @@ public class Calculator {
         return 2;
     }
     
+    
+    
+    public double evaluate(double x2, double y2, String op){
+    	double z=0;
+    	
+		if (op.equals("+"))
+			z = x2 + y2;
+		else if (op.equals("-"))
+			z = x2 - y2;
+		else if (op.equals("*"))
+			z = x2 * y2;
+		else
+			z = x2 / y2;
+		
+		return z;
+    }//계산이 이루어지는 함수.
+    
 	public int precedence(String token) {
 		switch (token) {
 		case "(":
