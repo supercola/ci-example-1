@@ -11,7 +11,13 @@ public class Calculator {
         return 2;
     }
     
-    
+    private boolean isAnOperator(String s){
+    	
+    	if(s.equals("+")||s.equals("-")||s.equals("*")||s.equals("/")){
+    		return true;
+    	}else
+    		return false;
+    }//연산자인지 확인해주는 함수
     
     public double evaluate(double x2, double y2, String op){
     	double z=0;
