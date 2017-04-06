@@ -1,10 +1,13 @@
 package univ.lecture;
 
+import java.util.Stack;
+
 /**
  * Created by tchi on 2017. 3. 19..
  */
 public class Calculator {
 	
+	Stack stack = new Stack();
 	int b;
 	
     public int calculate(String exp) {
@@ -55,5 +58,24 @@ public class Calculator {
 		}
 		return b;
 	}
+	
+	public void RPN(String[] args) {//최종적으로 계산 해주는 메소드
+
+		for (int i = 0; i < args.length; i++) {
+			String input = args[i];
+			if(input ==  null)break;
+//			System.out.print(input + " ");
+
+			if (isAnOperator(input)) {
+				
+				double y2=Double.parseDouble((String) stack.pop());
+				double x2=Double.parseDouble((String) stack.pop());
+				double z2 = evaluate(x2, y2, input);
+				
+				stack.push("" + z2);
+			} else
+				stack.push(input);
+		}
+	}//RPN의 끝
     
 }
