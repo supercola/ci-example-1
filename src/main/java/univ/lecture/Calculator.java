@@ -158,7 +158,7 @@ public class Calculator {
             double x2=Double.parseDouble((String) stack.pop());
             double z2 = evaluate(x2, y2, input);
             
-            stack.push(z2);
+            stack.push("" + z2);
          } else
             stack.push(input);
       }
